@@ -3,8 +3,9 @@ const http = require('http');
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-    res.write("Criando servidor com NodeJS"); // Mostra uma mensagem na rota
-    res.end(); // Necessario finalizar
+    res.statusCode = 200;
+    res.setHeader('Contenty-Type', 'text/html');
+    res.end("<h1>Mostrando elemento HTML na rota com NodeJS</h1>");
 })
 
 server.listen(port, () => {
