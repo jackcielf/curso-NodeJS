@@ -14,7 +14,11 @@ const server = http.createServer((req, res) => {
       return res.end();
     });
   } else {
-    fs.writeFile("arquivo.txt", name, (err, data) => {
+
+    // const nameNewLine = name + "\r\n";
+    const nameNewLine = name + ",\r\n";
+
+    fs.appendFile("arquivo.txt", nameNewLine, (err, data) => {
       res.writeHead(302, {
         Location: "/",
       });
