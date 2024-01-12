@@ -29,6 +29,13 @@ app.get('/contato/:contact?', (req, res) => {
     param ? res.send(`<h3>Você passou o parâmetro ${param}</h3>`) : res.send(`<h3>Você não passou nenhum parâmetro</h3>`);
 });
 
+app.get('/youtube', (req, res) => {
+    
+    var canal = req.query["canal"];
+
+    canal ? res.send(`<h3>O query param passado foi ${canal}</h3>`) : res.send(`<h3>Você não passou nenhum query param</h3>`);
+});
+
 app.listen(PORT, (err) => {
   err ? console.log(err) : console.log(`Servidor rodando na porta ${PORT}`);
 });
