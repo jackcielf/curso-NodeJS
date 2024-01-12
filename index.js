@@ -6,7 +6,13 @@ const PORT = 3000;
 app.set('view engine', 'ejs'); // Usando o 'ejs' para renderizar HTML
 
 app.get("/", (req, res) => {
-  res.render("home/home");
+    var nome = "Jack";
+    var lang = "TypeScript";
+
+  res.render("index", {
+    nome: nome,
+    lang: lang,
+  });
 });
 
 app.listen(PORT, (err) => {
