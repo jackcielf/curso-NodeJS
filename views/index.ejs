@@ -9,9 +9,15 @@
     <h1>Guia Perguntas</h1>
 
     <!-- <%=  %> Tag que exibe o valor de uma variavel -->
+    <!-- <%  %> (SEM =) Tag usada para fazer condicionais -->
 
     <p>Nome: <%= nome %></p>
     <p>Linguagem favorita: <%= lang %></p>
 
+    <% if(msg) { %>
+        <h3>Mostrando mensagem com condicional</h3>
+    <% } else { %>
+        <h3>Mostrando outra mensagem com condicional</h3>
+    <% } %>
 </body>
 </html>
