@@ -9,7 +9,7 @@
     <h1>Guia Perguntas</h1>
 
     <!-- <%=  %> Tag que exibe o valor de uma variavel -->
-    <!-- <%  %> (SEM =) Tag usada para fazer condicionais -->
+    <!-- <%  %> (SEM =) Tag usada para fazer condicionais e outros -->
 
     <p>Nome: <%= nome %></p>
     <p>Linguagem favorita: <%= lang %></p>
@@ -19,5 +19,9 @@
     <% } else { %>
         <h3>Mostrando outra mensagem com condicional</h3>
     <% } %>
+
+    <% produtos.forEach(produto => { %>
+        <p>Produto: <%= produto.nome %> - Valor: <%= produto.preco %></p>
+    <% }) %>
 </body>
 </html>

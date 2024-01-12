@@ -9,10 +9,26 @@ app.get("/", (req, res) => {
     var nome = "Jack";
     var lang = "TypeScript";
 
+    var produtos = [
+      {
+        nome: "Doritos", 
+        preco: 8.99
+      },
+      {
+        nome: "Coca-cola", 
+        preco: 5.99
+      },
+      {
+        nome: "Arroz", 
+        preco: 4.49
+      }
+    ]
+
   res.render("index", {
     nome: nome,
     lang: lang,
-    msg: true
+    msg: true,
+    produtos: produtos
   });
 });
 
