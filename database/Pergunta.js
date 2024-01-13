@@ -26,3 +26,5 @@ Pergunta.sync({ force: false })
       `!!!!! Tabela de nome ${TABLE_NAME} já existente !!!!!\n` + err
     );
   });
+
+  module.exports = Pergunta;

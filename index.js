@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser"); // Usado para pegar os dados POST de um Form
 const connection = require("./database/db");
-const perguntaModel = require("./database/Pergunta");
+const Pergunta = require("./database/Pergunta");
 
 const PORT = 3000;
 
@@ -36,7 +36,17 @@ app.post("/salvar-pergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
 
-  res.send(`Seu titulo foi: ${titulo} e seu descricao: ${descricao}`);
+  // Adicionando dados pegos do formulario na tabela
+  Pergunta.create({
+    titulo: titulo,
+    descricao: descricao,
+  })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.listen(PORT, (err) => {
