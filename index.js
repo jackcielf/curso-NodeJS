@@ -7,30 +7,11 @@ app.set("view engine", "ejs"); // Usando o 'ejs' para renderizar HTML
 app.use(express.static('public')); // Para usar arquivos estaticos (css, images, ...)
 
 app.get("/", (req, res) => {
-  var nome = "Jack";
-  var lang = "TypeScript";
+  res.render("index");
+});
 
-  var produtos = [
-    {
-      nome: "Doritos",
-      preco: 8.99,
-    },
-    {
-      nome: "Coca-cola",
-      preco: 5.99,
-    },
-    {
-      nome: "Arroz",
-      preco: 4.49,
-    },
-  ];
-
-  res.render("index", {
-    nome: nome,
-    lang: lang,
-    msg: true,
-    produtos: produtos,
-  });
+app.get('/perguntar', (req, res) => {
+  res.render('perguntar');
 });
 
 app.listen(PORT, (err) => {
