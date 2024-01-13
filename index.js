@@ -25,11 +25,13 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.get("/", (req, res) => {
-  Pergunta.findAll({ row: true }).then(perguntas => {
+  
+  // 'findAll' Equivalente a `SELECT * FROM <name table>`
+  Pergunta.findAll({ row: true, order: [["id", "desc"]] }).then((perguntas) => {
     res.render("index", {
-      perguntas: perguntas
+      perguntas: perguntas,
     });
-  }); // Equivalente a `SELECT * FROM <name table>`  
+  }); 
 });
 
 app.get("/perguntar", (req, res) => {
