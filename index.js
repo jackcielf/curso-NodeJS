@@ -25,7 +25,11 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.get("/", (req, res) => {
-  res.render("index");
+  Pergunta.findAll({ row: true }).then(perguntas => {
+    res.render("index", {
+      perguntas: perguntas
+    });
+  }); // Equivalente a `SELECT * FROM <name table>`  
 });
 
 app.get("/perguntar", (req, res) => {
