@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.get("/", (req, res) => {
-  
+
   // 'findAll' Equivalente a `SELECT * FROM <name table>`
   Pergunta.findAll({ row: true, order: [["id", "desc"]] }).then((perguntas) => {
     res.render("index", {
@@ -38,6 +38,7 @@ app.get("/perguntar", (req, res) => {
   res.render("perguntar");
 });
 
+// Rota em que a pergunta sera salva
 app.post("/salvar-pergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
@@ -53,6 +54,23 @@ app.post("/salvar-pergunta", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+// Rota para mostrar detalhes da pergunta
+app.get('/pergunta/:id', (req, res) => {
+  var id = req.params.id;
+
+  Pergunta.findOne({
+    where: { id: id }
+  }).then(pergunta => {
+    if(pergunta) { // Pergunta encontrada
+      res.render('pergunta-detalhes', {
+        pergunta: pergunta
+      });
+    } else { // Pergunta NÃO encontrada
+      res.redirect('/');
+    }
+  })
 });
 
 app.listen(PORT, (err) => {
