@@ -1,0 +1,9 @@
+.produto {
+    padding: 1rem;
+    background-color: rgba(172, 255, 47, 0.3);
+    border-radius: 5px;
+}
+
+.image {
+    width: 100%;
+}
