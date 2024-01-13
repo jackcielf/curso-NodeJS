@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser"); // Usado para pegar os dados POST de um Form
 const connection = require("./database/db");
+const perguntaModel = require("./database/Pergunta");
 
 const PORT = 3000;
 
