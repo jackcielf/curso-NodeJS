@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser"); // Usado para pegar os dados POST de um Form
 const connection = require("./database/db");
 const Pergunta = require("./database/Pergunta");
+const Resposta = require("./database/Resposta");
 
 const PORT = 3000;
 
@@ -25,13 +26,12 @@ app.use(bodyParser.json());
 
 // ROTAS
 app.get("/", (req, res) => {
-
   // 'findAll' Equivalente a `SELECT * FROM <name table>`
   Pergunta.findAll({ row: true, order: [["id", "desc"]] }).then((perguntas) => {
     res.render("index", {
       perguntas: perguntas,
     });
-  }); 
+  });
 });
 
 app.get("/perguntar", (req, res) => {
@@ -57,20 +57,45 @@ app.post("/salvar-pergunta", (req, res) => {
 });
 
 // Rota para mostrar detalhes da pergunta
-app.get('/pergunta/:id', (req, res) => {
+app.get("/pergunta/:id", (req, res) => {
   var id = req.params.id;
 
   Pergunta.findOne({
-    where: { id: id }
-  }).then(pergunta => {
-    if(pergunta) { // Pergunta encontrada
-      res.render('pergunta-detalhes', {
-        pergunta: pergunta
+    where: { id: id },
+  }).then((pergunta) => {
+    if (pergunta) {
+      // Pergunta encontrada
+
+      Resposta.findAll({
+        where: { perguntaId: pergunta.id },
+        order: [["id", "desc"]],
+      }).then((respostas) => {
+        res.render("pergunta-detalhes", {
+          pergunta: pergunta,
+          respostas: respostas,
+        });
       });
-    } else { // Pergunta NÃO encontrada
-      res.redirect('/');
+    } else {
+      // Pergunta NÃO encontrada
+      res.redirect("/");
     }
+  });
+});
+
+app.post("/responder", (req, res) => {
+  var corpo = req.body.corpo;
+  var perguntaId = req.body.perguntaId;
+
+  Resposta.create({
+    corpo: corpo,
+    perguntaId: perguntaId,
   })
+    .then(() => {
+      res.redirect(`/pergunta/${perguntaId}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.listen(PORT, (err) => {
